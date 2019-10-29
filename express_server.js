@@ -65,6 +65,16 @@ app.get("/urls/new", (req, res) => {
     res.render("urls_new", templateVars);
 });
 
+app.get("/login", (req, res) => {
+    let templateVars = {};
+
+    if (req.cookies && req.cookies.user_id) { 
+        templateVars.user = users[req.cookies.user_id];
+    } else templateVars.user = undefined;
+
+    res.render("urls_login", templateVars);
+});
+
 app.get("/register", (req, res) => {
     let templateVars = {};
 
