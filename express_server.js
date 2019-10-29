@@ -79,6 +79,7 @@ app.get("/urls", (req, res) => {
         templateVars.urls = urlsForUsers(req.cookies.user_id);
         templateVars.user = users[req.cookies.user_id];
     } else templateVars.user = undefined;
+    console.log(templateVars.urls.length);
 
     res.render("urls_index", templateVars);
 });

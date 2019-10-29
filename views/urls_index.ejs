@@ -22,17 +22,21 @@
         </tr>
       </thead>
       <tbody>
-        <% for(let url in urls) { %>
-          <tr>
-            <td><%= url %></td>
-            <td><%= urls[url].longURL %></td>
-            <td><form method="POST" action=<%= "/urls/" + url + "/delete"%>>
-            <button class="btn btn-danger">Delete</button>
-            </form></td>
-            <td><form method="GET" action=<%= "/urls/" + url %>>
-            <button class="btn btn-info">Edit</button>
-            </form></td>
-          </tr>
+        <% if (urls.length === 0 || urls.length === undefined) { %>
+          <p> Please sign in to add some tinyUrls. </p>
+        <% } else { %>
+          <% for(let url in urls) { %>
+            <tr>
+              <td><%= url %></td>
+              <td><%= urls[url].longURL %></td>
+              <td><form method="POST" action=<%= "/urls/" + url + "/delete"%>>
+              <button class="btn btn-danger">Delete</button>
+              </form></td>
+              <td><form method="GET" action=<%= "/urls/" + url %>>
+              <button class="btn btn-info">Edit</button>
+              </form></td>
+            </tr>
+          <% } %>
         <% } %>
       </tbody>
     </table>
