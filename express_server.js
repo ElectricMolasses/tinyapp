@@ -20,6 +20,15 @@ const generateRandomString = function() {
     return randomString.join('');
 };
 
+const emailAlreadyExists = function(email) {
+    for (user of users) {
+        if (user.email === email) {
+            return true;
+        }
+    }
+    return false;
+};
+
 const users = {};
 
 const urlDatabase = {
@@ -106,6 +115,11 @@ app.post("/logout", (req, res) => {
 
 app.post("/register", (req, res) => {
     const userID = generateRandomString();
+
+    if (!req.body.email || !req.body.password ||
+        emailAlreadyExists(req.body.email)) {
+        res.send(400);
+    }
 
     users[userID] = {
         id: userID,
