@@ -29,6 +29,15 @@ const emailAlreadyExists = function(email) {
     return false;
 };
 
+const getUserID = function(email) {
+    for (let user in users) {
+        if (users[user].email === email) {
+            return user;
+        }
+    }
+    return false;
+}
+
 const urlDatabase = {
     "b2xVn2": "http://www.lighthouselabs.ca",
     "9sm5xK": "http://www.google.com"
@@ -117,7 +126,13 @@ app.post("/urls/:shortURL/edit", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    res.cookie('username', req.body.username);
+    const userID = getUserID(req.body.email);
+    if (!emailAlreadyExists(req.body.email) ||
+        users[userID].password !== req.body.password) {
+        res.send(403);
+    }
+
+    res.cookie('user_id', userID);
     res.redirect('/urls/');
 });
 
