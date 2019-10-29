@@ -133,7 +133,7 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-    res.redirect(`/urls/${req.params.shortURL}`);
+    res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
 
 app.post("/urls", (req, res) => {
