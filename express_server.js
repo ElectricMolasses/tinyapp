@@ -46,8 +46,8 @@ const getUserID = function(email) {
 }
 
 const urlDatabase = {
-    "b2xVn2": "http://www.lighthouselabs.ca",
-    "9sm5xK": "http://www.google.com"
+    "b2xVn2": { longURL: "http://www.lighthouselabs.ca", userID: "" },
+    "9sm5xK": { longURL: "http://www.google.com", userID: "" }
 };
 
 const users = {};
@@ -75,7 +75,7 @@ app.get("/urls/new", (req, res) => {
     let templateVars = {};
 
     if (req.cookies && req.cookies.user_id &&
-        userIDExists(req.cookies.userID)) { 
+        userIDExists(req.cookies.user_id)) { 
         templateVars.user = users[req.cookies.user_id];
     } else {
         res.redirect("/login");
@@ -121,7 +121,10 @@ app.get("/u/:shortURL", (req, res) => {
 
 app.post("/urls", (req, res) => {
     const randoString = generateRandomString();
-    urlDatabase[randoString] = req.body.longURL;
+    urlDatabase[randoString] = {
+        randoString: req.body.longURL,
+        userID: req.cookies.user_id,
+    };
     res.redirect(`/urls/${randoString}`);
 });
 
