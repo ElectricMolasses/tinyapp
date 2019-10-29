@@ -138,16 +138,32 @@ app.get("/u/:shortURL", (req, res) => {
 
 app.post("/urls", (req, res) => {
     const randoString = generateRandomString();
-    urlDatabase[randoString] = {
-        userID: req.cookies.user_id,
-        longURL: req.body.longURL,
-    };
-    res.redirect(`/urls/${randoString}`);
+
+    if (req.cookies && req.cookies.user_id &&
+        userIDExists(req.cookies.user_id)) {
+        urlDatabase[randoString] = {
+            userID: req.cookies.user_id,
+            longURL: req.body.longURL,
+        };
+        res.redirect(`/urls/${randoString}`);
+    } else {
+        res.send(403);
+        res.redirect('/urls');
+    }
 });
 
 app.post("/urls/:shortURL/delete", (req, res) => {
-    delete urlDatabase[req.params.shortURL];
-    res.redirect(`/urls/`);
+
+    if (req.cookies && req.cookies.user_id &&
+        urlDatabase[req.params.shortURL] &&
+        urlDatabase[req.params.shortURL].userID === req.cookies.user_id) {
+        delete urlDatabase[req.params.shortURL];
+        res.redirect(`/urls/`);
+    } else {
+        res.send(403);
+        res.redirect('/urls');
+    }
+    
 });
 
 app.post("/urls/:shortURL/edit", (req, res) => {
