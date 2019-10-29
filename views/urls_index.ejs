@@ -29,6 +29,9 @@
             <td><form method="POST" action=<%= "/urls/" + url + "/delete"%>>
             <button>Delete</button>
             </form></td>
+            <td><form method="GET" action=<%= "/urls/" + url %>>
+            <button>Edit</button>
+            </form></td>
           </tr>
         <% } %>
       </tbody>
