@@ -53,12 +53,12 @@ app.get("/urls/new", (req, res) => {
     res.render("urls_new", templateVars);
 });
 
-app.get("/urls/register", (req, res) => {
+app.get("/register", (req, res) => {
     let templateVars = {};
     if (req.cookies && req.cookies.username) { 
         templateVars.username = req.cookies.username;
     } else templateVars.username = undefined;
-    
+
     res.render("urls_register", templateVars);
 });
 
@@ -100,6 +100,10 @@ app.post("/login", (req, res) => {
 app.post("/logout", (req, res) => {
     res.clearCookie('username');
     res.redirect('/urls/');
+});
+
+app.post("/register", (req, res) => {
+    res.redirect('/urls');
 });
 
 app.listen(PORT, () => {
