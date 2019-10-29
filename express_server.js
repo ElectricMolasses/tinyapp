@@ -157,18 +157,25 @@ app.post("/urls/:shortURL/delete", (req, res) => {
     if (req.cookies && req.cookies.user_id &&
         urlDatabase[req.params.shortURL] &&
         urlDatabase[req.params.shortURL].userID === req.cookies.user_id) {
-        delete urlDatabase[req.params.shortURL];
-        res.redirect(`/urls/`);
+            delete urlDatabase[req.params.shortURL];
+            res.redirect(`/urls/`);
     } else {
         res.send(403);
         res.redirect('/urls');
     }
-    
 });
 
 app.post("/urls/:shortURL/edit", (req, res) => {
-    urlDatabase[req.params.shortURL] = req.body.longURL;
-    res.redirect(`/urls/`);
+
+    if (req.cookies && req.cookies.user_id &&
+        urlDatabase[req.params.shortURL] &&
+        urlDatabase[req.params.shortURL].userID === req.cookies.user_id) {
+            urlDatabase[req.params.shortURL] = req.body.longURL;
+            res.redirect(`/urls/`);
+    } else {
+        res.send(403);
+        res.redirect('/urls');
+    }
 });
 
 app.post("/login", (req, res) => {
