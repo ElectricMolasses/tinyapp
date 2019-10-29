@@ -105,6 +105,15 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+    const userID = generateRandomString();
+
+    users[userID] = {
+        id: userID,
+        email: req.body.email,
+        password: req.body.password,
+    };
+    res.cookie('user_id', userID);
+
     res.redirect('/urls');
 });
 
