@@ -50,7 +50,7 @@ app.get("/urls/new", (req, res) => {
         templateVars.username = req.cookies.username;
     } else templateVars.username = undefined;
 
-    res.render("urls_new");
+    res.render("urls_new", templateVars);
 });
 
 app.get("/urls/:shortURL", (req, res) => {
