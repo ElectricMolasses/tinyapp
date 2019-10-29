@@ -7,6 +7,16 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
+const generateRandomString = function() {
+    const randomString = new Array(12).fill(0);
+
+    randomString.forEach((current, i) => {
+        randomString[i] = String.fromCharCode(Math.random() * 50 + 30);
+    });
+    
+    return randomString.join('');
+};
+
 const urlDatabase = {
     "b2xVn2": "http://www.lighthouselabs.ca",
     "9sm5xK": "http://www.google.com"
@@ -42,3 +52,5 @@ app.get("/urls/:shortURL", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);
 });
+
+generateRandomString();
