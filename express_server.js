@@ -50,7 +50,7 @@ const urlsForUsers = function(userID) {
 
     for (const url in urlDatabase) {
         if (urlDatabase[url].userID === userID) {
-            userURLS[url] = urlDatabase[url];
+            userURLs[url] = urlDatabase[url];
         }
     }
     return userURLs;
@@ -72,10 +72,11 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-    let templateVars = { urls: urlDatabase };
+    const templateVars = { urls: {}};
     // req.cookies does provide an empty object if there are no cookies,
     // but it is MISSING hasOwnProperty.
-    if (req.cookies && req.cookies.user_id) { 
+    if (req.cookies && req.cookies.user_id) {
+        templateVars.urls = urlsForUsers(req.cookies.user_id);
         templateVars.user = users[req.cookies.user_id];
     } else templateVars.user = undefined;
 
