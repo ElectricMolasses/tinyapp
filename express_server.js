@@ -21,20 +21,20 @@ const generateRandomString = function() {
 };
 
 const emailAlreadyExists = function(email) {
-    for (user of users) {
-        if (user.email === email) {
+    for (let user in users) {
+        if (users[user].email === email) {
             return true;
         }
     }
     return false;
 };
 
-const users = {};
-
 const urlDatabase = {
     "b2xVn2": "http://www.lighthouselabs.ca",
     "9sm5xK": "http://www.google.com"
 };
+
+const users = {};
 
 app.get("/", (req, res) => {
     res.send("Hello!");
