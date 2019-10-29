@@ -8,12 +8,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
 const generateRandomString = function() {
-    const randomString = new Array(12).fill(0);
+    const randomString = new Array(6).fill(0);
+
+    const possibleCharacters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     randomString.forEach((current, i) => {
-        randomString[i] = String.fromCharCode(Math.random() * 50 + 30);
+        randomString[i] = possibleCharacters[Math.floor(Math.random() * possibleCharacters.length)];
     });
-    
     return randomString.join('');
 };
 
@@ -40,8 +41,9 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-    console.log(req.body);
-    res.send("Ok");
+    const randoString = generateRandomString();
+    urlDatabase[randoString] = req.body.longURL;
+    res.redirect(`/urls/${randoString}`);
 });
 
 app.get("/urls/:shortURL", (req, res) => {
@@ -52,5 +54,3 @@ app.get("/urls/:shortURL", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);
 });
-
-generateRandomString();
