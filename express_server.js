@@ -21,7 +21,7 @@ const generateRandomString = function() {
 };
 
 const emailAlreadyExists = function(email) {
-    for (let user in users) {
+    for (const user in users) {
         if (users[user].email === email) {
             return true;
         }
@@ -29,8 +29,15 @@ const emailAlreadyExists = function(email) {
     return false;
 };
 
+const userIDExists = function(userID) {
+    for (const user in users) {
+        if (user === userID) return true;
+    }
+    return false;
+}
+
 const getUserID = function(email) {
-    for (let user in users) {
+    for (const user in users) {
         if (users[user].email === email) {
             return user;
         }
@@ -67,9 +74,12 @@ app.get("/urls", (req, res) => {
 app.get("/urls/new", (req, res) => {
     let templateVars = {};
 
-    if (req.cookies && req.cookies.user_id) { 
+    if (req.cookies && req.cookies.user_id &&
+        userIDExists(req.cookies.userID)) { 
         templateVars.user = users[req.cookies.user_id];
-    } else templateVars.user = undefined;
+    } else {
+        res.redirect("/login");
+    }
 
     res.render("urls_new", templateVars);
 });
