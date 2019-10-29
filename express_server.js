@@ -49,7 +49,7 @@ app.get("/urls", (req, res) => {
     // req.cookies does provide an empty object if there are no cookies,
     // but it is MISSING hasOwnProperty.
     if (req.cookies && req.cookies.user_id) { 
-        templateVars.user = users[user_id];
+        templateVars.user = users[req.cookies.user_id];
     } else templateVars.user = undefined;
 
     res.render("urls_index", templateVars);
@@ -57,9 +57,9 @@ app.get("/urls", (req, res) => {
 
 app.get("/urls/new", (req, res) => {
     let templateVars = {};
-    
+
     if (req.cookies && req.cookies.user_id) { 
-        templateVars.user = users[user_id];
+        templateVars.user = users[req.cookies.user_id];
     } else templateVars.user = undefined;
 
     res.render("urls_new", templateVars);
@@ -69,7 +69,7 @@ app.get("/register", (req, res) => {
     let templateVars = {};
 
     if (req.cookies && req.cookies.user_id) { 
-        templateVars.user = users[user_id];
+        templateVars.user = users[req.cookies.user_id];
     } else templateVars.user = undefined;
 
     res.render("urls_register", templateVars);
@@ -80,7 +80,7 @@ app.get("/urls/:shortURL", (req, res) => {
         longURL: urlDatabase[req.params.shortURL] };
 
     if (req.cookies && req.cookies.user_id) { 
-        templateVars.user = users[user_id];
+        templateVars.user = users[req.cookies.user_id];
     } else templateVars.user = undefined;
 
     res.render("urls_show", templateVars);
@@ -112,7 +112,7 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-    res.clearCookie('username');
+    res.clearCookie('user_id');
     res.redirect('/urls/');
 });
 
