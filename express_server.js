@@ -45,6 +45,17 @@ const getUserID = function(email) {
     return false;
 }
 
+const urlsForUsers = function(userID) {
+    const userURLs = {};
+
+    for (const url in urlDatabase) {
+        if (urlDatabase[url].userID === userID) {
+            userURLS[url] = urlDatabase[url];
+        }
+    }
+    return userURLs;
+};
+
 const urlDatabase = {
     "b2xVn2": { longURL: "http://www.lighthouselabs.ca", userID: "" },
     "9sm5xK": { longURL: "http://www.google.com", userID: "" }
