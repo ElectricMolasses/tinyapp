@@ -121,15 +121,19 @@ app.get("/urls/:shortURL", (req, res) => {
     let templateVars = { shortURL: req.params.shortURL, 
         longURL: urlDatabase[req.params.shortURL] };
 
-    if (req.cookies && req.cookies.user_id) { 
+    if (req.cookies && req.cookies.user_id &&
+        urlDatabase[req.params.shortURL].userID === req.cookies.user_id) { 
         templateVars.user = users[req.cookies.user_id];
-    } else templateVars.user = undefined;
+    } else {
+        templateVars.user = undefined;
+        res.redirect("/urls");
+    }
 
     res.render("urls_show", templateVars);
 });
 
 app.get("/u/:shortURL", (req, res) => {
-    res.redirect(urlDatabase[req.params.shortURL]);
+    res.redirect(`/urls/${req.params.shortURL}`);
 });
 
 app.post("/urls", (req, res) => {
