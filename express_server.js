@@ -48,27 +48,29 @@ app.get("/urls", (req, res) => {
     let templateVars = { urls: urlDatabase };
     // req.cookies does provide an empty object if there are no cookies,
     // but it is MISSING hasOwnProperty.
-    if (req.cookies && req.cookies.username) { 
-        templateVars.username = req.cookies.username;
-    } else templateVars.username = undefined;
+    if (req.cookies && req.cookies.user_id) { 
+        templateVars.user = users[user_id];
+    } else templateVars.user = undefined;
 
     res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
     let templateVars = {};
-    if (req.cookies && req.cookies.username) { 
-        templateVars.username = req.cookies.username;
-    } else templateVars.username = undefined;
+    
+    if (req.cookies && req.cookies.user_id) { 
+        templateVars.user = users[user_id];
+    } else templateVars.user = undefined;
 
     res.render("urls_new", templateVars);
 });
 
 app.get("/register", (req, res) => {
     let templateVars = {};
-    if (req.cookies && req.cookies.username) { 
-        templateVars.username = req.cookies.username;
-    } else templateVars.username = undefined;
+
+    if (req.cookies && req.cookies.user_id) { 
+        templateVars.user = users[user_id];
+    } else templateVars.user = undefined;
 
     res.render("urls_register", templateVars);
 });
@@ -76,9 +78,10 @@ app.get("/register", (req, res) => {
 app.get("/urls/:shortURL", (req, res) => {
     let templateVars = { shortURL: req.params.shortURL, 
         longURL: urlDatabase[req.params.shortURL] };
-    if (req.cookies && req.cookies.username) { 
-        templateVars.username = req.cookies.username;
-    } else templateVars.username = undefined;
+
+    if (req.cookies && req.cookies.user_id) { 
+        templateVars.user = users[user_id];
+    } else templateVars.user = undefined;
 
     res.render("urls_show", templateVars);
 });
