@@ -53,6 +53,15 @@ app.get("/urls/new", (req, res) => {
     res.render("urls_new", templateVars);
 });
 
+app.get("/urls/register", (req, res) => {
+    let templateVars = {};
+    if (req.cookies && req.cookies.username) { 
+        templateVars.username = req.cookies.username;
+    } else templateVars.username = undefined;
+    
+    res.render("urls_register", templateVars);
+});
+
 app.get("/urls/:shortURL", (req, res) => {
     let templateVars = { shortURL: req.params.shortURL, 
         longURL: urlDatabase[req.params.shortURL] };
