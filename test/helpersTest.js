@@ -22,7 +22,7 @@ const testUsers = {
   }
 };
 
-describe('getUserByEmail', function() {
+describe('getUserByEmail', () => {
   it('should return a user with valid email', () => {
     const user = getUserByEmail("user@example.com", testUsers);
     const expectedOutput = "userRandomID";
@@ -34,4 +34,24 @@ describe('getUserByEmail', function() {
     const user = getUserByEmail("asdf@fakeemail.com", testUsers);
     assert.isUndefined(user);
   });
+});
+
+describe('generateRandomString', () => {
+
+});
+
+describe('emailAlreadyExists', () => {
+
+});
+
+describe('userIDExists', () => {
+
+});
+
+describe('getUserID', () => {
+
+});
+
+describe('urlsForUsers', () => {
+
 });
