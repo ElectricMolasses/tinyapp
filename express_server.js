@@ -41,7 +41,7 @@ app.get("/hello", (req, res) => {
 app.get("/urls", (req, res) => {
   const templateVars = { urls: {}};
 
-  if (req.session && req.session.user_id) {
+  if (userIDExists(req.session, users)) {
     templateVars.urls = urlsForUsers(req.session.user_id);
     templateVars.user = users[req.session.user_id];
   } else templateVars.user = undefined;
@@ -65,7 +65,7 @@ app.get("/login", (req, res) => {
   let templateVars = {};
 
   if (req.session && req.session.user_id) {
-    templateVars.user = users[req.session.user_id];
+    res.redirect("/urls");
   } else templateVars.user = undefined;
 
   res.render("urls_login", templateVars);
