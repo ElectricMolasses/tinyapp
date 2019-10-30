@@ -34,6 +34,14 @@ const emailAlreadyExists = function(email, database) {
     return false;
 };
 
+const getUserByEmail = function(email, database) {
+    for (const user in database) {
+        if (database[user].email === email) {
+            return user;
+        }
+    }
+}
+
 const userIDExists = function(userID) {
     for (const user in users) {
         if (user === userID) return true;
