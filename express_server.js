@@ -24,8 +24,8 @@ app.use(cookieParser({
 app.set('view engine', 'ejs');
 
 const urlDatabase = {
-  "b2xVn2": { longURL: "http://www.lighthouselabs.ca", userID: "" },
-  "9sm5xK": { longURL: "http://www.google.com", userID: "" }
+  "b2xVn2": { longURL: "http://www.lighthouselabs.ca", userID: "", dateCreated: 0},
+  "9sm5xK": { longURL: "http://www.google.com", userID: "", dateCreated: 0 }
 };
 
 const users = {};
@@ -106,6 +106,7 @@ app.post("/urls", (req, res) => {
     urlDatabase[randoString] = {
       userID: req.session.user_id,
       longURL: req.body.longURL,
+      dateCreated: Date.now(),
     };
     res.redirect(`/urls/${randoString}`);
   } else {
@@ -169,7 +170,7 @@ app.post("/register", (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
   };
-  console.log(users[userID]);
+
   req.session.user_id = userID;
 
   res.redirect('/urls');
