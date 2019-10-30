@@ -10,7 +10,6 @@ const bcrypt = require('bcrypt');
 const {
   generateRandomString,
   emailAlreadyExists,
-  getUserByEmail,
   userIDExists,
   getUserID,
   urlsForUsers
