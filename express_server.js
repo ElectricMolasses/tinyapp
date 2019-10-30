@@ -85,7 +85,7 @@ app.get("/urls/:shortURL", (req, res) => {
     longURL: urlDatabase[req.params.shortURL].longURL };
 
   if (userIDExists(req.session, users) &&
-        urlDatabase[req.params.shortURL].userID === req.session.user_id) {
+      urlDatabase[req.params.shortURL].userID === req.session.user_id) {
     templateVars.user = users[req.session.user_id];
   } else {
     templateVars.user = undefined;
@@ -96,6 +96,7 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
+  urlDatabase[req.params.shortURL].timesVisited++;
   res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
 
@@ -107,6 +108,7 @@ app.post("/urls", (req, res) => {
       userID: req.session.user_id,
       longURL: req.body.longURL,
       dateCreated: Date.now(),
+      timesVisited: 0
     };
     res.redirect(`/urls/${randoString}`);
   } else {
