@@ -25,9 +25,9 @@ const generateRandomString = function() {
     return randomString.join('');
 };
 
-const emailAlreadyExists = function(email) {
-    for (const user in users) {
-        if (users[user].email === email) {
+const emailAlreadyExists = function(email, database) {
+    for (const user in database) {
+        if (database[user].email === email) {
             return true;
         }
     }
@@ -184,7 +184,7 @@ app.post("/urls/:shortURL/edit", (req, res) => {
 
 app.post("/login", (req, res) => {
     const userID = getUserID(req.body.email);
-    if (!emailAlreadyExists(req.body.email) ||
+    if (!emailAlreadyExists(req.body.email, users) ||
         !bcrypt.compareSync(req.body.password, users[userID].password)) {
         res.send(403);
     }
@@ -194,15 +194,15 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-    res.clearCookie('user_id');
-    res.redirect('/urls/');
+    req.session = null;
+    res.redirect('/urls');
 });
 
 app.post("/register", (req, res) => {
     const userID = generateRandomString();
 
     if (!req.body.email || !req.body.password ||
-        emailAlreadyExists(req.body.email)) {
+        emailAlreadyExists(req.body.email, users)) {
         res.send(400);
     }
 
