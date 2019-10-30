@@ -1,4 +1,4 @@
-const require = requires('require');
+const request = require('request-promise-native');
 
 const generateRandomString = function() {
   const randomString = new Array(6).fill(0);
@@ -13,11 +13,11 @@ const generateRandomString = function() {
 
 const cleanURL = function(URL) {
   let cleaned = URL.toLowerCase();
-  if (cleaned.match(/^https*:\/\//)) {
-    console.log("I tried");
-  } else {
-    console.log("And I failed.");
+  if (!cleaned.match(/^https*:\/\//)) {
+    // Prefix https://
+    cleaned = 'https://' + cleaned;
   }
+  return cleaned;
 };
 
 const emailAlreadyExists = function(email, database) {

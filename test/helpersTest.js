@@ -24,20 +24,16 @@ const testUsers = {
 };
 
 describe('cleanURL', () => {
-  it('should return a string if the site is valid, with or without a prefix', () => {
-    assert.isString(cleanURL('facebook.com'));
-  });
-
-  it('should return false if he website does not exist, or cannot be accessed', () => {
-    assert.isFalse(cleanURL('asldkfjasl'));
-  });
-
   it('should add http:// to a url that is missing a prefix', () => {
-    assert.equal(cleanURL('google.com'), 'http://google.com');
+    let cleanedURL = cleanURL('google.com');
+
+    assert.equal(cleanedURL, 'https://google.com');
   });
 
   it('should not alter a URL that already has a prefix', () => {
-    assert.equal(cleanURL('https://google.com'), 'https://google.com');
+    let cleanedURL = cleanURL('https://google.com');
+    
+    assert.equal(cleanedURL, 'https://google.com');
   });
 });
 
