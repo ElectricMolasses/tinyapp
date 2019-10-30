@@ -1,3 +1,5 @@
+const require = requires('require');
+
 const generateRandomString = function() {
   const randomString = new Array(6).fill(0);
 
@@ -7,6 +9,15 @@ const generateRandomString = function() {
     randomString[i] = possibleCharacters[Math.floor(Math.random() * possibleCharacters.length)];
   });
   return randomString.join('');
+};
+
+const cleanURL = function(URL) {
+  let cleaned = URL.toLowerCase();
+  if (cleaned.match(/^https*:\/\//)) {
+    console.log("I tried");
+  } else {
+    console.log("And I failed.");
+  }
 };
 
 const emailAlreadyExists = function(email, database) {
@@ -57,6 +68,7 @@ const urlsForUsers = function(userID, database) {
 };
 
 module.exports = {
+  cleanURL,
   generateRandomString,
   emailAlreadyExists,
   getUserByEmail,

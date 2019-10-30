@@ -1,6 +1,7 @@
 const { assert } = require('chai');
 
 const {
+  cleanURL,
   generateRandomString,
   emailAlreadyExists,
   getUserByEmail,
@@ -21,6 +22,24 @@ const testUsers = {
     password: "dishwasher-funk"
   }
 };
+
+describe('cleanURL', () => {
+  it('should return a string if the site is valid, with or without a prefix', () => {
+    assert.isString(cleanURL('facebook.com'));
+  });
+
+  it('should return false if he website does not exist, or cannot be accessed', () => {
+    assert.isFalse(cleanURL('asldkfjasl'));
+  });
+
+  it('should add http:// to a url that is missing a prefix', () => {
+    assert.equal(cleanURL('google.com'), 'http://google.com');
+  });
+
+  it('should not alter a URL that already has a prefix', () => {
+    assert.equal(cleanURL('https://google.com'), 'https://google.com');
+  });
+});
 
 describe('getUserByEmail', () => {
   it('should return a user with valid email', () => {
