@@ -19,17 +19,19 @@
         <tr>
           <th scope="col">Short URL</th>
           <th scope="col">Long URL</th>
+          <th scope="col">Date Created</th>
         </tr>
       </thead>
       <tbody>
         <% if (Object.keys(urls).length === 0 || Object.keys(urls).length === undefined) { %>
           <p> Please sign in or click "Create New URL" to add mini URLS. </p>
         <% } else { %>
-          console.log(urls
-          <% for(let url in urls) { %>
+          <% for(let url in urls) { 
+            let createdOn = new Date(urls[url].dateCreated); %>
             <tr>
               <td><%= url %></td>
               <td><%= urls[url].longURL %></td>
+              <td><%= `${createdOn.getDay()}/${createdOn.getMonth()}/${createdOn.getYear() + 1900}` %></td>
               <td><form method="POST" action=<%= "/urls/" + url + "/delete"%>>
               <button class="btn btn-danger">Delete</button>
               </form></td>
