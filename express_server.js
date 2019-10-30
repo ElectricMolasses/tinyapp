@@ -75,6 +75,7 @@ app.get("/register", (req, res) => {
 
   if (userIDExists(req.session, users)) {
     templateVars.user = users[req.session.user_id];
+    res.redirect("/urls");
   } else templateVars.user = undefined;
 
   res.render("urls_register", templateVars);
