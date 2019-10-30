@@ -32,6 +32,7 @@ const users = {};
 
 app.get("/", (req, res) => {
   if (userIDExists(req.session, users)) {
+    console.log(req.session.user_id);
     res.redirect("/urls");
   }
   res.redirect("/login");
@@ -67,7 +68,7 @@ app.get("/urls/new", (req, res) => {
 app.get("/login", (req, res) => {
   let templateVars = {};
 
-  if (req.session && req.session.user_id) {
+  if (userIDExists(req.session, users)) {
     res.redirect("/urls");
   } else templateVars.user = undefined;
 
@@ -77,7 +78,7 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
   let templateVars = {};
 
-  if (req.session && req.session.user_id) {
+  if (userIDExists(req.session, users)) {
     templateVars.user = users[req.session.user_id];
   } else templateVars.user = undefined;
 
