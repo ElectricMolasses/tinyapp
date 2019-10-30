@@ -22,10 +22,10 @@
         </tr>
       </thead>
       <tbody>
-        <% if (urls && (Object.keys(urls).length === 0 || Object.keys(urls).length === undefined)) { %>
+        <% if (Object.keys(urls).length === 0 || Object.keys(urls).length === undefined) { %>
           <p> Please sign in or click "Create New URL" to add mini URLS. </p>
         <% } else { %>
-          console.log(urls);
+          console.log(urls
           <% for(let url in urls) { %>
             <tr>
               <td><%= url %></td>
