@@ -52,8 +52,7 @@ app.get("/urls", (req, res) => {
 app.get("/urls/new", (req, res) => {
   let templateVars = {};
 
-  if (req.session && req.session.user_id &&
-        userIDExists(req.session.user_id, users)) {
+  if (userIDExists(req.session, users)) {
     templateVars.user = users[req.session.user_id];
   } else {
     res.redirect("/login");
@@ -86,7 +85,7 @@ app.get("/urls/:shortURL", (req, res) => {
   let templateVars = { shortURL: req.params.shortURL,
     longURL: urlDatabase[req.params.shortURL] };
 
-  if (req.session && req.session.user_id &&
+  if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
     templateVars.user = users[req.session.user_id];
   } else {
@@ -104,8 +103,7 @@ app.get("/u/:shortURL", (req, res) => {
 app.post("/urls", (req, res) => {
   const randoString = generateRandomString();
 
-  if (req.session && req.session.user_id &&
-        userIDExists(req.session.user_id, users)) {
+  if (userIDExists(req.session, users)) {
     urlDatabase[randoString] = {
       userID: req.session.user_id,
       longURL: req.body.longURL,
@@ -119,7 +117,7 @@ app.post("/urls", (req, res) => {
 
 app.post("/urls/:shortURL/delete", (req, res) => {
 
-  if (req.session && req.session.user_id &&
+  if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
     delete urlDatabase[req.params.shortURL];
@@ -132,7 +130,7 @@ app.post("/urls/:shortURL/delete", (req, res) => {
 
 app.post("/urls/:shortURL/edit", (req, res) => {
 
-  if (req.session && req.session.user_id &&
+  if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
     urlDatabase[req.params.shortURL] = req.body.longURL;
@@ -144,7 +142,7 @@ app.post("/urls/:shortURL/edit", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const userID = getUserID(req.body.email);
+  const userID = getUserID(req.body.email, users);
   if (!emailAlreadyExists(req.body.email, users) ||
         !bcrypt.compareSync(req.body.password, users[userID].password)) {
     res.send(403);
@@ -172,6 +170,7 @@ app.post("/register", (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
   };
+  console.log(users[userID]);
   req.session.user_id = userID;
 
   res.redirect('/urls');

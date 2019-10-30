@@ -26,11 +26,13 @@ const getUserByEmail = function(email, database) {
   }
 };
 
-const userIDExists = function(userID, database) {
-  for (const user in database) {
-    if (user === userID) return true;
+const userIDExists = function(userCookie, database) {
+  if (userCookie && userCookie.user_id) {
+    for (const user in database) {
+      if (user === userCookie.user_id) return true;
+    }
+    return false;
   }
-  return false;
 };
 
 const getUserID = function(email, database) {
