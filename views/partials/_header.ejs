@@ -6,19 +6,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/urls">My URLs</a>
-            <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
+            <a class="nav-item nav-link" style="margin: 2px" href="/urls">My URLs</a>
+            <a class="nav-item nav-link" style="margin: 2px" href="/urls/new">Create New URL</a>
             <% if (user !== undefined && user) { %>
-            <form class="form-inline" method="POST" action="/logout">
-                <p> <%= user.email %> </p>
-                <button class="btn btn-default">Logout</button>
+            <form class="form-inline" style="margin: 2px" method="POST" action="/logout">
+                <p class="nav-item nav-link"> <%= user.email %> </p>
+                <button class="nav-item btn btn-warning">Logout</button>
             </form>
             <%} else {%>
-            <form class="form-inline" method="GET" action="/login">
-                <button class="btn btn-default">Login</button>
+            <form class="form-inline" style="margin: 2px" method="GET" action="/login">
+                <button class="nav-item btn btn-primary">Login</button>
             </form>
-            <form class="form-inline" method="GET" action="/register">
-                <button class="btn btn-default">Register</button>
+            <form class="form-inline" style="margin: 2px" method="GET" action="/register">
+                <button class="nav-item btn btn-info">Register</button>
             </form>
             <%}%>
         </div>
