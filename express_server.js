@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 8080; // default port 8080
+const PORT = 8080;
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-session');
@@ -40,8 +40,7 @@ app.get("/hello", (req, res) => {
 
 app.get("/urls", (req, res) => {
   const templateVars = { urls: {}};
-  // req.cookies does provide an empty object if there are no cookies,
-  // but it is MISSING hasOwnProperty.
+
   if (req.session && req.session.user_id) {
     templateVars.urls = urlsForUsers(req.session.user_id);
     templateVars.user = users[req.session.user_id];

@@ -32,7 +32,6 @@ describe('getUserByEmail', function() {
 
   it('should return undefined if the users email does not exist', () => {
     const user = getUserByEmail("asdf@fakeemail.com", testUsers);
-
     assert.isUndefined(user);
   });
 });
