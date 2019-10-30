@@ -75,6 +75,7 @@ app.get("/register", (req, res) => {
   if (userIDExists(req.session, users)) {
     templateVars.user = users[req.session.user_id];
     res.redirect("/urls");
+    return;
   } else templateVars.user = undefined;
 
   res.render("urls_register", templateVars);
@@ -149,6 +150,7 @@ app.post("/login", (req, res) => {
   if (!emailAlreadyExists(req.body.email, users) ||
         !bcrypt.compareSync(req.body.password, users[userID].password)) {
     res.send(403);
+    return;
   }
 
   req.session.user_id = userID;
@@ -166,6 +168,7 @@ app.post("/register", (req, res) => {
   if (!req.body.email || !req.body.password ||
         emailAlreadyExists(req.body.email, users)) {
     res.send(400);
+    return;
   }
 
   users[userID] = {
