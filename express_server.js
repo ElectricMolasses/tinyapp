@@ -38,10 +38,6 @@ app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/hello", (req, res) => {
-  res.send("<html>");
-});
-
 app.get("/urls", (req, res) => {
   const templateVars = { urls: {}};
 
