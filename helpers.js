@@ -53,6 +53,10 @@ const urlsForUsers = function(userID, database) {
   return userURLs;
 };
 
+const userLoggedIn = function(userID, database) {
+
+};
+
 module.exports = {
   generateRandomString,
   emailAlreadyExists,
