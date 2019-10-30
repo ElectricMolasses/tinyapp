@@ -11,8 +11,24 @@
         <div class="card text-center">
             <div class="card-header"></div>
             <div class="card-body">
-              <h5 class="card-title">TinyURL for: <%= longURL %></h5>
+              <h5 class="card-title">TinyURL for: <%= url.longURL %></h5>
               <p class="card-text">Short URL: <a href="/u/<%= shortURL %>"><%= shortURL %></a></p>
+              <table class='table'>
+                <thead>
+                  <tr>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Times Visited</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <% const createdOn = new Date(url.dateCreated) %>
+                    <td><%= `${createdOn.getDay()}/${createdOn.getMonth()}/${createdOn.getYear() + 1900}` %></td>
+                    <td><%= url.timesVisited %></td>
+                    <td><%= url.createdOn %></td>
+                  </tr>
+                </tbody>
+             </table>
               <form method="POST" action=<%= "/urls/" + shortURL + "/edit"%>>
                 <input type="text" name="longURL">
                 <button class="btn btn-info">Edit</button>

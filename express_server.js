@@ -81,12 +81,13 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  let templateVars = { shortURL: req.params.shortURL,
-    longURL: urlDatabase[req.params.shortURL].longURL };
+  let templateVars = {};
 
-  if (userIDExists(req.session, users) &&
+  if (userIDExists(req.session, users) && urlDatabase[req.params.shortURL] &&
       urlDatabase[req.params.shortURL].userID === req.session.user_id) {
     templateVars.user = users[req.session.user_id];
+    templateVars.shortURL = req.params.shortURL;
+    templateVars.url = urlDatabase[req.params.shortURL];
   } else {
     templateVars.user = undefined;
     res.redirect("/urls");
