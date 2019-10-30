@@ -43,6 +43,7 @@ app.get("/urls", (req, res) => {
 
   if (userIDExists(req.session, users)) {
     templateVars.urls = urlsForUsers(req.session.user_id);
+    urlsForUsers(req.session.user_id)
     templateVars.user = users[req.session.user_id];
   } else templateVars.user = undefined;
 
@@ -83,7 +84,7 @@ app.get("/register", (req, res) => {
 
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = { shortURL: req.params.shortURL,
-    longURL: urlDatabase[req.params.shortURL] };
+    longURL: urlDatabase[req.params.shortURL].longURL };
 
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
