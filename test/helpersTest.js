@@ -37,21 +37,49 @@ describe('getUserByEmail', () => {
 });
 
 describe('generateRandomString', () => {
+  it('should return a random string', () => {
+    const output = generateRandomString();
 
+    assert.isString(output);
+  });
+
+  it('should have a length of 6', () => {
+    const output = generateRandomString();
+
+    assert.equal(output.length, 6);
+  });
 });
 
 describe('emailAlreadyExists', () => {
+  it('should return true if the email is in the database', () => {
+    assert.isTrue(emailAlreadyExists('user2@example.com', testUsers));
+  });
 
+  it('should return false if the email is not in the database', () => {
+    assert.isFalse(emailAlreadyExists('use1@example.com', testUsers));
+  });
 });
 
 describe('userIDExists', () => {
+  it('should return true if the user ID is in the database, when passed a cookie', () => {
+    assert.isTrue(userIDExists({ user_id: 'user2RandomID' }, testUsers));
+  });
 
+  it('should return false if the user ID is not in the database, when passed a cookie', () => {
+    assert.isFalse(userIDExists({ user_id: 'iamnotreal' }, testUsers));
+  });
 });
 
 describe('getUserID', () => {
+  it('should return a matching user id if email is in the database', () => {
+    assert.deepEqual(getUserID('user@example.com', testUsers), 'userRandomID');
+  });
 
+  it('should return false if the user object is not in the database', () => {
+    assert.isFalse(getUserID('dudemail@emails.bork'));
+  });
 });
 
 describe('urlsForUsers', () => {
-
+  
 });
