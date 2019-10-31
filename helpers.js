@@ -14,7 +14,6 @@ const generateRandomString = function(database) {
 const cleanURL = function(URL) {
   let cleaned = URL.toLowerCase();
   if (!cleaned.match(/^https*:\/\//)) {
-    // Prefix https://
     cleaned = 'http://' + cleaned;
   }
   return cleaned;
