@@ -103,7 +103,7 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  const randoString = generateRandomString();
+  const randoString = generateRandomString(urlDatabase);
 
   if (userIDExists(req.session, users)) {
     urlDatabase[randoString] = {
@@ -163,7 +163,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  const userID = generateRandomString();
+  const userID = generateRandomString(users);
 
   if (!req.body.email || !req.body.password ||
         emailAlreadyExists(req.body.email, users)) {
