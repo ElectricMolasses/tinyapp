@@ -29,7 +29,7 @@
                   </tr>
                 </tbody>
              </table>
-              <form method="POST" action=<%= "/urls/" + shortURL + "/edit"%>>
+              <form method="POST" action=<%= "/urls/" + shortURL + "?_method=PUT"%>>
                 <input type="text" name="longURL">
                 <button class="btn btn-info">Edit</button>
               </form>
