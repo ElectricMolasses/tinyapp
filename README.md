@@ -26,10 +26,13 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 - Register first to create and edit tinyUrls.
 - Once signed in Create New URL will ask you to provide a website.
+- URL's do not require a protocol, but if one is not provided, it will prefix http.
+- The main page will keep track of all links you have created, as well as the date of creation and how many times they have been used.
+- The edit function of the name page will provide the same information, albeit for a single URL.  It will let you change where the mini URL leads, but not the URL itself.
+- Delete will immediately delete the mini URL with no confirmation prompt.
 
 ## Functionality
 
 Basic functionality is shortening and storing of URLs.  The URLs are tied to individual accounts, so anyone can use a redirect link, but only the creators can edit or delete them.  As a result, registration is required to create URLs.
 
 The URLs will keep track of when they were created, and how many times they have been accessed, ticks of which can be viewed on the users index page, or on the edit page of that URL.
-
