@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const methodOverride = require('method-override');
 const PORT = 8080;
 
 const bodyParser = require('body-parser');
@@ -21,6 +22,7 @@ app.use(cookieParser({
   name: 'session',
   keys: ['J:AOSD89wqht98qfupjqwe9dfpja9pyh(SA*uJAISLOFASDRJWEAFH893WAHUAWLFDJ.LJK:asojd:oISDHF9QIWEHF9IQW'],
 }));
+app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 const urlDatabase = {
@@ -120,7 +122,7 @@ app.post("/urls", (req, res) => {
   }
 });
 
-app.post("/urls/:shortURL/delete", (req, res) => {
+app.delete("/urls/:shortURL", (req, res) => {
 
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
@@ -133,7 +135,7 @@ app.post("/urls/:shortURL/delete", (req, res) => {
   }
 });
 
-app.post("/urls/:shortURL/edit", (req, res) => {
+app.put("/urls/:shortURL", (req, res) => {
 
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&

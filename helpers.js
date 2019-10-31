@@ -12,7 +12,7 @@ const generateRandomString = function(database) {
 };
 
 const cleanURL = function(URL) {
-  let cleaned = URL.toLowerCase();
+  let cleaned = String(URL).toLowerCase();
   if (!cleaned.match(/^https*:\/\//)) {
     cleaned = 'http://' + cleaned;
   }
