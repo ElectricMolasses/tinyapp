@@ -1,5 +1,3 @@
-const request = require('request-promise-native');
-
 const generateRandomString = function() {
   const randomString = new Array(6).fill(0);
 
