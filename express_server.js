@@ -122,7 +122,7 @@ app.post("/urls", (req, res) => {
   }
 });
 
-app.delete("/urls/:shortURL/delete", (req, res) => {
+app.delete("/urls/:shortURL", (req, res) => {
 
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
