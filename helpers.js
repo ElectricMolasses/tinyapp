@@ -15,7 +15,7 @@ const cleanURL = function(URL) {
   let cleaned = URL.toLowerCase();
   if (!cleaned.match(/^https*:\/\//)) {
     // Prefix https://
-    cleaned = 'https://' + cleaned;
+    cleaned = 'http://' + cleaned;
   }
   return cleaned;
 };

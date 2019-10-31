@@ -12,7 +12,8 @@ const {
   emailAlreadyExists,
   userIDExists,
   getUserID,
-  urlsForUsers
+  urlsForUsers,
+  cleanURL
 } = require('./helpers');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -108,7 +109,7 @@ app.post("/urls", (req, res) => {
   if (userIDExists(req.session, users)) {
     urlDatabase[randoString] = {
       userID: req.session.user_id,
-      longURL: req.body.longURL,
+      longURL: cleanURL(req.body.longURL),
       dateCreated: Date.now(),
       timesVisited: 0
     };
