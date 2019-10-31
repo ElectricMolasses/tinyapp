@@ -140,7 +140,7 @@ app.put("/urls/:shortURL", (req, res) => {
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
-    urlDatabase[req.params.shortURL].longURL = req.body.longURL;
+    urlDatabase[req.params.shortURL].longURL = cleanURL(req.body.longURL);
     res.redirect(`/urls/`);
   } else {
     res.send(403);

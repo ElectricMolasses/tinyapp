@@ -23,7 +23,7 @@
                 <tbody>
                   <tr>
                     <% const createdOn = new Date(url.dateCreated) %>
-                    <td><%= `${createdOn.getDay()}/${createdOn.getMonth()}/${createdOn.getYear() + 1900}` %></td>
+                    <td><%= `${createdOn.getDate()}/${createdOn.getMonth() + 1}/${createdOn.getYear() + 1900}` %></td>
                     <td><%= url.timesVisited %></td>
                     <td><%= url.createdOn %></td>
                   </tr>
