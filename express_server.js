@@ -171,6 +171,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+  // Users are stored under unique, randomly generated keys.
   const userID = generateRandomString(users);
 
   if (!req.body.email || !req.body.password ||
