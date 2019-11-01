@@ -11,6 +11,8 @@ const generateRandomString = function(database) {
   return randomString.join('');
 };
 
+// Adds http to the URL if it's not present to avoid
+// internal redirections.
 const cleanURL = function(URL) {
   let cleaned = String(URL).toLowerCase();
   if (!cleaned.match(/^https*:\/\//)) {
@@ -54,7 +56,7 @@ const getUserID = function(email, database) {
   }
   return false;
 };
-
+// Returns all mini URLs a user owns.
 const urlsForUsers = function(userID, database) {
   const userURLs = {};
 
