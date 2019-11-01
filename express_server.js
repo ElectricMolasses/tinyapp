@@ -84,21 +84,20 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  let templateVars = {};
   // Confirms the shortURL actually exists, and then passes neccesary
   // information to the page template to display URL information.
   if (userIDExists(req.session, users) && urlDatabase[req.params.shortURL] &&
       urlDatabase[req.params.shortURL].userID === req.session.user_id) {
-    templateVars.user = users[req.session.user_id];
-    templateVars.shortURL = req.params.shortURL;
-    templateVars.url = urlDatabase[req.params.shortURL];
+    let templateVars = {
+      user: users[req.session.user_id],
+      shortURL: req.params.shortURL,
+      url: urlDatabase[req.params.shortURL],
+    };
+    res.render("urls_show", templateVars);
   } else {
     // Bounce user to index if it's not a valid URL.
-    templateVars.user = undefined;
     res.redirect("/urls");
   }
-
-  res.render("urls_show", templateVars);
 });
 
 app.get("/u/:shortURL", (req, res) => {
