@@ -29,13 +29,15 @@ const urlDatabase = {};
 
 const users = {};
 
+// Redirects logged in users to the urls page, otherwise,
+// redirects directly to login.
 app.get("/", (req, res) => {
   if (userIDExists(req.session, users)) {
     res.redirect("/urls");
   }
   res.redirect("/login");
 });
-
+// Endpoint for index page with all owned URLs.
 app.get("/urls", (req, res) => {
   const templateVars = { urls: {}};
 
@@ -46,7 +48,7 @@ app.get("/urls", (req, res) => {
 
   res.render("urls_index", templateVars);
 });
-
+// Endpoint for create URL page.
 app.get("/urls/new", (req, res) => {
   let templateVars = {};
 
@@ -61,7 +63,7 @@ app.get("/urls/new", (req, res) => {
 
 app.get("/login", (req, res) => {
   let templateVars = {};
-
+  // Immediately bounces user to url index if they're already signed in.
   if (userIDExists(req.session, users)) {
     res.redirect("/urls");
   } else templateVars.user = undefined;
@@ -71,7 +73,7 @@ app.get("/login", (req, res) => {
 
 app.get("/register", (req, res) => {
   let templateVars = {};
-
+  // Immediately bounces user to url index if they're already signed in.
   if (userIDExists(req.session, users)) {
     templateVars.user = users[req.session.user_id];
     res.redirect("/urls");
@@ -83,13 +85,15 @@ app.get("/register", (req, res) => {
 
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {};
-
+  // Confirms the shortURL actually exists, and then passes neccesary
+  // information to the page template to display URL information.
   if (userIDExists(req.session, users) && urlDatabase[req.params.shortURL] &&
       urlDatabase[req.params.shortURL].userID === req.session.user_id) {
     templateVars.user = users[req.session.user_id];
     templateVars.shortURL = req.params.shortURL;
     templateVars.url = urlDatabase[req.params.shortURL];
   } else {
+    // Bounce user to index if it's not a valid URL.
     templateVars.user = undefined;
     res.redirect("/urls");
   }
@@ -98,13 +102,16 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
+  // Redirect endpoint, just increments counter for that URL each
+  // time someone uses it.
   urlDatabase[req.params.shortURL].timesVisited++;
   res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
 
 app.post("/urls", (req, res) => {
   const randoString = generateRandomString(urlDatabase);
-
+  // Confirms the user is logged into a valid account before
+  // creating a new shortURL object.
   if (userIDExists(req.session, users)) {
     urlDatabase[randoString] = {
       userID: req.session.user_id,
@@ -120,7 +127,8 @@ app.post("/urls", (req, res) => {
 });
 
 app.delete("/urls/:shortURL", (req, res) => {
-
+  // Confirms user is signed in and owns that URL before
+  // allowing the deletion to pass.
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
@@ -133,7 +141,8 @@ app.delete("/urls/:shortURL", (req, res) => {
 });
 
 app.put("/urls/:shortURL", (req, res) => {
-
+  // Confirms user is signed in and owns that URL before
+  // allowing the edit to pass.
   if (userIDExists(req.session, users) &&
         urlDatabase[req.params.shortURL] &&
         urlDatabase[req.params.shortURL].userID === req.session.user_id) {
