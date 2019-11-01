@@ -21,23 +21,6 @@ const cleanURL = function(URL) {
   return cleaned;
 };
 
-const emailAlreadyExists = function(email, database) {
-  for (const user in database) {
-    if (database[user].email === email) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const getUserByEmail = function(email, database) {
-  for (const user in database) {
-    if (database[user].email === email) {
-      return user;
-    }
-  }
-};
-
 const userIDExists = function(userCookie, database) {
   
   if (userCookie && userCookie.user_id) {
@@ -55,6 +38,23 @@ const getUserID = function(email, database) {
     }
   }
   return false;
+};
+
+const emailAlreadyExists = function(email, database) {
+  for (const user in database) {
+    if (database[user].email === email) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const getUserByEmail = function(email, database) {
+  for (const user in database) {
+    if (database[user].email === email) {
+      return user;
+    }
+  }
 };
 // Returns all mini URLs a user owns.
 const urlsForUsers = function(userID, database) {
