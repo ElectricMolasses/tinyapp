@@ -25,10 +25,7 @@ app.use(cookieParser({
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
-const urlDatabase = {
-  "b2xVn2": { longURL: "http://www.lighthouselabs.ca", userID: "", dateCreated: 0},
-  "9sm5xK": { longURL: "http://www.google.com", userID: "", dateCreated: 0 }
-};
+const urlDatabase = {};
 
 const users = {};
 
